@@ -10,31 +10,11 @@
 <div class="small-4 columns">
   <%= image_tag @item.image_url, class: "featured" %>
 </div>
-<div class="small-4 columns">
-  <p>
-    <%= @item.description %>
-  </p>
-
-  <p>
-    Starting price:
-    <%= number_to_currency(@item.starting_price) %>
-  </p>
-
-  <h3>Highest bid</h3>
-  <div class="row collapse">
-    <div class="small-2 columns"><span class="prefix">$</span></div>
-    <div class="small-10 columns"><%= text_field_tag :nothing, @item.highest_bid_amount, disabled: true %></div>
-  </div>
-
-  <%= form_for @bid do |f| %>
-    <h3>Your Bid</h3>
-    <%= f.hidden_field :item_id %>
-    <div class="row collapse">
-      <div class="small-2 columns"><span class="prefix">$</span></div>
-      <div class="small-10 columns"><%= f.text_field :amount %></div>
-    </div>
-    <%= f.submit "Submit Bid!", class: "button success small" %>
-  <% end %>
+<div class="small-4 columns" id="bid-container">
+  <%= render partial: "items/highest_bid", locals: {item: @item} %>
+  <%= render partial: "items/your_bid", locals: {bid: @bid} %>
 </div>
 <div class="small-4 columns">
+  <%= controller.controller_name %>
+    <%= controller.action_name %>
 </div>

@@ -12,8 +12,46 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require foundation
 //= require turbolinks
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+$(document).on("page:change", function(){
+    var data = $('body').data();
+    $(document).trigger(data.controller + ':loaded');
+    $(document).trigger(data.controller + '#' + data.action + ':loaded');
+});
+
+$(function(){
+  $(document).on('items#show:loaded', function worker() {
+    var bidId = $("#bid_item_id").val();
+    var highBid = $("#nothing").val();
+    var bidAmount = $("#bid_amount")
+    $.ajax({
+      type:'GET',
+      url:'/items/' + bidId,
+      success: function(data){
+        //I assume you want to do something on controller action execution success?
+        if($(data).find("#nothing").val() != highBid) {
+          if($(data).find("#bid_amount").val()  < bidAmount.val()) {
+            $("#bid_amount").replaceWith(bidAmount);
+          } else {
+            $("#bid_amount").replaceWith($(data).find("#bid_amount"));
+          }
+          $("#nothing").replaceWith($(data).find("#nothing"));
+
+        }
+        var timeoutVar = setTimeout(worker, 15000);
+      }
+    });
+  });
+
+  $(window).on('items#show:unload', function() {
+    clearTimeout(timeoutVar);
+    timeoutVar = 0;
+  });
+
+});
