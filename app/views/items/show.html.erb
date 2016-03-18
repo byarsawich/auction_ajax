@@ -11,10 +11,8 @@
   <%= image_tag @item.image_url, class: "featured" %>
 </div>
 <div class="small-4 columns" id="bid-container">
-  <%= render partial: "items/highest_bid", locals: {item: @item} %>
-  <%= render partial: "items/your_bid", locals: {bid: @bid} %>
+  <%= render partial: "highest_bid", locals: {item: @item} %>
+  <%= render partial: "your_bid", locals: {bid: @bid} %>
 </div>
 <div class="small-4 columns">
-  <%= controller.controller_name %>
-    <%= controller.action_name %>
 </div>

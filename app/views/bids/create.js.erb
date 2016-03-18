@@ -1,2 +1,2 @@
-$("#bid-container").html("<%= j(render partial: 'items/highest_bid', locals: {item: @bid.item}) %>")
-$("#bid-container").append(" <%= j(render partial: 'items/your_bid', locals: {bid: @bid}) %>")
+$("#bid-container").html("<%= j(render partial: 'items/highest_bid', locals: {item: @item}); %>")
+$("#bid-container").append("<%= j(render partial: 'items/your_bid', locals: {bid: @bid}); %>")
