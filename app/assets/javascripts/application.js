@@ -29,16 +29,15 @@ $(function(){
   $(document).on('items#show:loaded', function worker() {
     var bidId = $("#bid_item_id").val();
     var highBid = $("#nothing").val();
-    var bidAmount = $("#bid_amount")
+    var bidAmount = $("#bid_amount").val();
     $.ajax({
       type:'GET',
       url:'/items/' + bidId,
       success: function(data){
         //I assume you want to do something on controller action execution success?
-        if($(data).find("#nothing").val() != highBid) {
-          if($(data).find("#bid_amount").val()  < bidAmount.val()) {
-            $("#bid_amount").replaceWith(bidAmount);
-          } else {
+        var newBid = $(data).find("#nothing").val()
+        if(newBid != highBid) {
+          if(newBid >= bidAmount) {
             $("#bid_amount").replaceWith($(data).find("#bid_amount"));
           }
           $("#nothing").replaceWith($(data).find("#nothing"));
