@@ -34,7 +34,6 @@ $(function(){
       type:'GET',
       url:'/items/' + bidId,
       success: function(data){
-        //I assume you want to do something on controller action execution success?
         var newBid = $(data).find("#nothing").val()
         if(newBid != highBid) {
           if(newBid >= bidAmount) {
